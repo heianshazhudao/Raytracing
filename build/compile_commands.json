@@ -1,0 +1,7 @@
+[
+{
+  "directory": "D:/Project/Computer Graphics/raytracing/build",
+  "command": "D:\\Library\\MingW\\mingw64\\bin\\g++.exe  @CMakeFiles/raytracing.dir/includes_CXX.rsp -g -o CMakeFiles\\raytracing.dir\\src\\main.cpp.obj -c \"D:\\Project\\Computer Graphics\\raytracing\\src\\main.cpp\"",
+  "file": "D:/Project/Computer Graphics/raytracing/src/main.cpp"
+}
+]
