@@ -7,8 +7,7 @@
 class sphere : public hittable {
 public:
   sphere(point3 _center, double _radius) : center(_center), radius(_radius) {}
-  bool hit(const ray &r, double ray_tmin, double ray_tmax,
-           hit_record &rec) const override {
+  bool hit(const ray &r, interval ray_t, hit_record &rec) const override {
     vec3 oc = r.origin() - center;
     auto a = r.direction().length_squared();
     auto half_b = dot(oc, r.direction());
@@ -21,16 +20,16 @@ public:
 
     // 可接受范围内的最小根
     auto root = (-half_b - sqrtd) / a;
-    if (root <= ray_tmin || root >= ray_tmax) {
+    if (!ray_t.surrounds(root)) {
       root = (-half_b + sqrtd) / a;
-      if (root <= ray_tmin || root >= ray_tmax)
+      if (!ray_t.surrounds(root))
         return false;
     }
 
     rec.t = root;
     rec.p = r.at(root);
-    vec3 outward_normal=(rec.p-center)/radius;
-    rec.set_face_normal(r,outward_normal);
+    vec3 outward_normal = (rec.p - center) / radius;
+    rec.set_face_normal(r, outward_normal);
 
     return true;
   }
