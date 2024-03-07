@@ -7,6 +7,10 @@
 
 using color = vec3;
 
+inline double liner_to_gamma(double liner_component) {
+  return sqrt(liner_component);
+}
+
 void write_color(std::ostream &out, color pixel_color, int samples_per_pixel) {
 
   auto r = pixel_color.x();
@@ -18,6 +22,12 @@ void write_color(std::ostream &out, color pixel_color, int samples_per_pixel) {
   r *= scale;
   g *= scale;
   b *= scale;
+
+  // apply the linear to gamma transfo
+  r = liner_to_gamma(r);
+  g = liner_to_gamma(g);
+  b = liner_to_gamma(b);
+
   // 写入颜色值(分量范围在[0,255])
   static const interval intensitiy(0.000, 0.999);
   out << static_cast<int>(256 * intensitiy.clamp(r)) << ' '
